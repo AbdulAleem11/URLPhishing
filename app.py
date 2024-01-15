@@ -79,5 +79,5 @@ def process_url():
         result = f"The entered URL is {url}"
         return jsonify({'result': result})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
