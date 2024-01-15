@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Processor</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ddd, #eee); /* Grey gradient background */
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        div {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #loader, #result {
+            font-size: 20px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<div>
+    <form id="urlForm">
+        <label for="url">Enter URL:</label>
+        <input type="text" id="url" name="url" required>
+        <button type="button" onclick="processURL()">Submit</button>
+    </form>
+    <div id="loader" style="display:none;">Loading...</div>
+    <div id="result" style="display:none;"></div>
+</div>
+
+<script>
+    function processURL() {
+        var url = $('#url').val();
+        $('#loader').show();
+        $('#result').hide();
+
+        $.ajax({
+            type: 'POST',
+            url: '/process_url',
+            data: { 'url': url },
+            success: function(response) {
+                $('#loader').hide();
+                $('#result').text(response.result);
+                $('#result').show();
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
